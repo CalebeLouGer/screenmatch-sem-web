@@ -23,9 +23,5 @@ public class ScreenmatchApplication implements CommandLineRunner {
         var dados = converteDados.obterDados(json,DadosSerie.class);
         System.out.println(dados);
 
-
-//        json = consumoApi.obterDados("https://coffee.alexflipnote.dev/random.json");
-//        System.out.println(json);
-
     }
 }
