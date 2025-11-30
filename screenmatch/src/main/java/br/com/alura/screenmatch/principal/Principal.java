@@ -82,7 +82,7 @@ public class Principal {
         var anoAtual = 2025;
 
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if (ano < anoAtual){
+        if (ano <= anoAtual){
             LocalDate dataBusca = LocalDate.of(ano,1,1);
             episodios.stream()
                     .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
