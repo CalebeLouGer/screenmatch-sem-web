@@ -1,5 +1,4 @@
-
-/// Tentativa de usar a API do ChatGptOpenAI, não funcionou por conta da versão antiga que estava tentando usar.
+// Tentativa de usar a API do ChatGptOpenAI, não funcionou por conta da versão antiga que estava tentando usar.
 
 //package br.com.alura.screenmatch.service;
 //
@@ -23,7 +22,7 @@
 //}
 //
 //
-/// Tentativa de usar a API do ChatGPTOpenAI, uma versão mais nova mas não tive tempo para fazer a requisição e optei por outra API
+// Tentativa de usar a API do ChatGPTOpenAI, uma versão mais nova mas não tive tempo para fazer a requisição e optei por outra API
 
 package br.com.alura.screenmatch.service;
 
