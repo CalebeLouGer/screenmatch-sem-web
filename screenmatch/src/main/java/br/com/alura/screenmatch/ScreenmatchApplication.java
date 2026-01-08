@@ -1,6 +1,6 @@
 package br.com.alura.screenmatch;
 
-import br.com.alura.screenmatch.principal.PrincipalNova;
+import br.com.alura.screenmatch.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var main = new PrincipalNova();
+        var main = new Principal();
         main.exibeMenu();
     }
 }

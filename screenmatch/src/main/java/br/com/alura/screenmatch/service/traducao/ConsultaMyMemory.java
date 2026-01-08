@@ -2,7 +2,8 @@ package br.com.alura.screenmatch.service.traducao;
 
 import br.com.alura.screenmatch.service.ConsumoApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.URLEncoder;
 
@@ -22,6 +23,8 @@ public class ConsultaMyMemory {
         DadosTraducao traducao;
         try {
             traducao = mapper.readValue(json, DadosTraducao.class);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
