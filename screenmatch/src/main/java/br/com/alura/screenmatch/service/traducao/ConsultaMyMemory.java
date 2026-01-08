@@ -2,7 +2,7 @@ package br.com.alura.screenmatch.service.traducao;
 
 import br.com.alura.screenmatch.service.ConsumoApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import java.net.URLEncoder;
 

@@ -1,6 +1,5 @@
 package br.com.alura.screenmatch;
 
-import br.com.alura.screenmatch.principal.Principal;
 import br.com.alura.screenmatch.principal.PrincipalNova;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
