@@ -3,8 +3,10 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,6 +22,12 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=5397d6b1";
     private List<DadosSerie> dadosSeriesList = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -58,7 +66,8 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeriesList.add(dados);
+        Serie serie = new Serie(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
