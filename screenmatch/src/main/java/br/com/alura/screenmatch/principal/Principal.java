@@ -20,6 +20,7 @@ public class Principal {
 
     private SerieRepository repository;
     private List<Serie> series = new ArrayList<>();
+    private Optional<Serie> serieOptional;
 
     public Principal(SerieRepository repository) {
         this.repository = repository;
@@ -39,6 +40,7 @@ public class Principal {
                     [7] Buscar por Categoria
                     [8] Filtrar Série
                     [9] Buscar Nome do Episódio
+                    [10]Top 5 Episodios por Série
                     
                     [0] Sair
                     ==================================""";
@@ -74,6 +76,9 @@ public class Principal {
                     break;
                 case 9:
                     buscarEpisodioPorTrecho();
+                    break;
+                case 10:
+                    topEpisodiosPorSerie();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -138,7 +143,7 @@ public class Principal {
     private void buscarSeriePorTitulo() {
         System.out.println("Escolha uma Série pelo Nome: ");
         var serieBuscada = leitura.nextLine();
-        Optional<Serie> serieOptional = repository.findByTituloContainingIgnoreCase(serieBuscada);
+        serieOptional = repository.findByTituloContainingIgnoreCase(serieBuscada);
 
         if(serieOptional.isPresent()){
             System.out.println("Dados da Série: \n" + serieOptional.get());
@@ -193,5 +198,16 @@ public class Principal {
                 System.out.printf("Série: %s | Temporada: %s | Episódio: %s - %s\n",
                         e.getSerie().getTitulo(),e.getTemporada(),
                         e.getNumeroEpisodio(),e.getTitulo()));
+    }
+
+    private void topEpisodiosPorSerie(){
+        buscarSeriePorTitulo();
+        if (serieOptional.isPresent()){
+            Serie serie = serieOptional.get();
+            List<Episodio> topEpisodios = repository.topEpisodioPorSerie(serie);
+            topEpisodios.forEach(e ->
+                    System.out.printf("Avaliação: %.1f | Temporada: %s | Episódio: %s - %s\n",
+                            e.getAvaliacao(),e.getTemporada(),e.getNumeroEpisodio(),e.getTitulo()));
+        }
     }
 }
