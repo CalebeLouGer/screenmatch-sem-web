@@ -1,6 +1,8 @@
 package br.com.alura.screenmatch.service;
 
+import br.com.alura.screenmatch.dto.EpisodioDTO;
 import br.com.alura.screenmatch.dto.SerieDTO;
+import br.com.alura.screenmatch.model.Categoria;
 import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.repository.SerieRepository;
 import org.hibernate.dialect.SelectItemReferenceStrategy;
@@ -54,5 +56,28 @@ public class SerieService {
                     s.getPoster());
         }
         return null;
+    }
+
+    public List<EpisodioDTO> obterTodasAsTemporadas(Long id) {
+        Optional<Serie> serie = repository.findById(id);
+        if(serie.isPresent()){
+            Serie s = serie.get();
+            return s.getEpisodioList().stream()
+                    .map(e -> new EpisodioDTO(e.getTemporada(),e.getNumeroEpisodio(),e.getTitulo()))
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<EpisodioDTO> obeterTemporadasPorNumero(Long id, Long temporada) {
+        return repository.obterEpisodioPorTemporada(id, temporada)
+                .stream()
+                .map(e -> new EpisodioDTO(e.getTemporada(),e.getNumeroEpisodio(),e.getTitulo()))
+                .collect(Collectors.toList());
+    }
+
+    public List<SerieDTO> obterSeriePorCategoria(String categoria) {
+        Categoria categoriaEnum = Categoria.fromString(categoria);
+        return converteDadosSerie(repository.findByGenero(categoriaEnum));
     }
 }

@@ -11,21 +11,32 @@ import java.util.Optional;
 
 public interface SerieRepository extends JpaRepository<Serie, Long> {
     Optional<Serie> findByTituloContainingIgnoreCase(String nomeSerie);
+
     List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
+
     List<Serie> findTop5ByOrderByAvaliacaoDesc();
+
     List<Serie> findByGenero(Categoria categoria);
 //    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(int totalTemporadas, double avaliacao);
+
     @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.avaliacao >= :avaliacao")
     List<Serie> seriePorTemporadaEAvaliacao(int totalTemporadas, double avaliacao);
+
     @Query("SELECT e FROM Serie s JOIN s.episodioList e WHERE e.titulo ILIKE %:nomeEpisodio%")
     List<Episodio> episodioPorTrecho(String nomeEpisodio);
+
     @Query("SELECT e FROM Serie s JOIN s.episodioList e WHERE s = :serie ORDER BY e.avaliacao DESC LIMIT 5")
     List<Episodio> topEpisodioPorSerie(Serie serie);
+
     @Query("SELECT e FROM Serie s JOIN s.episodioList e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
     List<Episodio> episodioPorSerieEAno(Serie serie,int anoLancamento);
+
     @Query("SELECT s FROM Serie s " +
             "JOIN s.episodioList e " +
             "GROUP BY s " +
             "ORDER BY MAX(e.dataLancamento) DESC LIMIT 5")
     List<Serie> encontrarEpisodiosMaisRecentes();
+
+    @Query("SELECT e FROM Serie s JOIN s.episodioList e WHERE s.id = :id AND e.temporada = :temporada")
+    List<Episodio> obterEpisodioPorTemporada(Long id, Long temporada);
 }
